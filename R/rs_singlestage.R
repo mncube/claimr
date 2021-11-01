@@ -6,7 +6,7 @@ rs_singlestage <- function(df = NULL,
 
   #Do you want to set a seed number?
   if (seed_number == 0){#If No:
-   seed <- sample(1:1000000, 1)
+   seed <- sample(0:1000000, 1)
   } else {#If Yes:
    seed <- seed_number
   }

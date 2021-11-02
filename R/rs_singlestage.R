@@ -31,20 +31,29 @@ rs_singlestage <- function(df = NULL,
   high <- frame_high
 
   #Add random numbers to dataframe
+
+  #Copy df
   df_sample_frame <-  df
+
+  #Add random_numbers to sample frame
   df_sample_frame$random_numbers <- sample(x = low:high, size = high - low + 1,
                                      replace = FALSE)
+
+  #Order sample frame by random_numbers
   df_sample_frame <- df_sample_frame[order(df_sample_frame$random_numbers),]
 
+  #Create the data frame containing the sample
   if (quantity == 0){
     df_sample <- NULL
   } else {
     df_sample <- df_sample_frame[1:quantity,]
   }
 
+  #Get indices for spares
   spare_start <- quantity + 1
   spare_end <- spare_start + spares - 1
 
+  #Create data frame containing the spares
   if (spares == 0 | quantity == 0){
     df_spare <- NULL
   } else {

@@ -30,18 +30,39 @@ rs_singlestage <- function(df = NULL,
   #Enter the sampling frame High Number:
   high <- frame_high
 
+  #Add random numbers to dataframe
+  df_sample_frame <-  df
+  df_sample_frame$random_numbers <- sample(x = low:high, size = high - low + 1,
+                                     replace = FALSE)
+  df_sample_frame <- df_sample_frame[order(df_sample_frame$random_numbers),]
+
+  if (quantity == 0){
+    df_sample <- NULL
+  } else {
+    df_sample <- df_sample_frame[1:quantity,]
+  }
+
+  spare_start <- quantity + 1
+  spare_end <- spare_start + spares - 1
+
+  if (spares == 0 | quantity == 0){
+    df_spare <- NULL
+  } else {
+    df_spare <- df_sample_frame[spare_start:spare_end,]
+  }
+
   #File output options
   if ("data.frame" %in% output_options){
 
-    #Get output data.frames
-    df_sample <- df
-    df_sample_frame <- df
-
     #Gather output in list
-    output <- list("sample" = df_sample, "sample_frame" = df_sample_frame)
+    output <- list("sample" = df_sample,
+                   "sample_frame" = df_sample_frame,
+                   "spares" = df_spare)
 
   } else {
-    output <- list("sample" = "Invalid Output Provided", "sample_frame" = "Invalid Output Provided")
+    output <- list("sample" = "Invalid Output Format Provided",
+                   "sample_frame" = "Invalid Output Format Provided",
+                   "spares" = "Invalid Output Format Provided")
   }
 
   #Collect output

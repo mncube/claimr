@@ -2,7 +2,7 @@
 % Please edit documentation in R/rs_singlestage.R
 \name{rs_singlestage}
 \alias{rs_singlestage}
-\title{Rat-Stats Style Single Stage}
+\title{Rat-Stats Style Single Stage Random Numbers}
 \usage{
 rs_singlestage(
   df = NULL,
@@ -44,7 +44,7 @@ includes the random numbers and each has been sorted by random number.  The inpu
 returns input parameters and the random number seed.
 }
 \description{
-Rat-Stats Style Single Stage
+Rat-Stats Style Single Stage Random Numbers
 }
 \examples{
 #Generate sampling frame  with an index id from 1 to N (where N is the number

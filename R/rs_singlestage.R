@@ -1,4 +1,4 @@
-#' Rat-Stats Style Single Stage
+#' Rat-Stats Style Single Stage Random Numbers
 #'
 #' @param df A data frame containing an index or id column sequenced from
 #' frame_low to frame_high

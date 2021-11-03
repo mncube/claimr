@@ -1,3 +1,40 @@
+#' Rat-Stats Style Single Stage
+#'
+#' @param df A data frame containing an index or id column sequenced from
+#' frame_low to frame_high
+#' @param seed_number "Do you want to provide seed number?" Provide a seed number.
+#' If the default (seed_number = NA) is retained then the seed number will be set
+#' to sample(0:1000000, 1) and the result will be returned in the output.
+#' @param audit_review "Name of the Audit/Review"
+#' @param quantity_to_generate "Enter the quantity of numbers to be generated in
+#' Random Order."
+#' @param quantity_of_spares "Enter the quantity of Spare numbers to be generated
+#' in Random Order:"
+#' @param frame_low "Enter the sampling frame Low Number: (default = 1)"
+#' @param frame_high "Enter the sampling frame High Number: (default = 1)"
+#' @param output_options "File Output Options: (Enter a subset of c("data.frame"))"
+#'
+#' @return A nested list with "output" and "input" lists.  The output list contains three
+#' data frames: the sample, the sample frame, and the spares.  Each data frame
+#' includes the random numbers and each has been sorted by random number.  The input list
+#' returns input parameters and the random number seed.
+#' @export
+#'
+#' @examples
+#' #Generate sampling frame  with an index id from 1 to N (where N is the number
+#' #of observation on the sampling frame)
+#' df_sample_frame <- data.frame("sample_frame_sequence_id" = 1:1000,
+#'                              "score" = sample(c("A", "B"), size = 1000, replace = TRUE))
+#'
+#' #Run rs_singlestage function to obtain output and input lists
+#' rs_singlestage(df = df_sample_frame,
+#'                seed_number = 100,
+#'                audit_review = "Score Audit",
+#'                quantity_to_generate = 20,
+#'                quantity_of_spares = 3,
+#'                frame_low = 1,
+#'                frame_high = 1000,
+#'                output_options = c("data.frame"))
 rs_singlestage <- function(df = NULL,
                            seed_number = NA,
                            audit_review = "",

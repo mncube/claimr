@@ -23,8 +23,7 @@
 #'                                   quantity_to_generate = 100,
 #'                                   quantity_of_spares = 3,
 #'                                   frame_low = 1,
-#'                                   frame_high = 1000,
-#'                                   output_options = c("data.frame"))
+#'                                   frame_high = 1000)
 #'
 #' #Compute relative bias of sample stored in score_audit_num
 #'
@@ -35,8 +34,8 @@ relative_bias <- function(obj = NULL, var = NULL, ...){
   var <- deparse(substitute(var))
 
   #Get the mean of var for the sample and sampling frame
-  sample_mean <- mean(obj$output$output_options$sample[[var]], ...)
-  frame_mean <- mean(obj$output$output_options$sample_frame[[var]], ...)
+  sample_mean <- mean(obj$output$sample[[var]], ...)
+  frame_mean <- mean(obj$output$sample_frame[[var]], ...)
 
   #Calculate the relative bias
   rbias <- abs((sample_mean - frame_mean)/frame_mean)

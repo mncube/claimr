@@ -12,7 +12,6 @@
 #' in Random Order:"
 #' @param frame_low "Enter the sampling frame Low Number: (default = 1)"
 #' @param frame_high "Enter the sampling frame High Number: (default = 1)"
-#' @param output_options "File Output Options: (Enter a subset of c("data.frame"))"
 #'
 #' @return A nested list with "output" and "input" lists.  The output list contains three
 #' data frames: the sample, the sample frame, and the spares.  Each data frame
@@ -33,16 +32,14 @@
 #'                quantity_to_generate = 20,
 #'                quantity_of_spares = 3,
 #'                frame_low = 1,
-#'                frame_high = 1000,
-#'                output_options = c("data.frame"))
+#'                frame_high = 1000)
 rs_singlestage <- function(df = NULL,
                            seed_number = NA,
                            audit_review = "",
                            quantity_to_generate = 0,
                            quantity_of_spares = 0,
                            frame_low = 1,
-                           frame_high = 1,
-                           output_options = c("data.frame")){
+                           frame_high = 1){
 
   #Do you want to set a seed number?
   if (is.na(seed_number)){#If No:
@@ -97,23 +94,14 @@ rs_singlestage <- function(df = NULL,
     df_spare <- df_sample_frame[spare_start:spare_end,]
   }
 
-  #File output options
-  if ("data.frame" %in% output_options){
 
-    #Gather output in list
-    output <- list("sample" = df_sample,
-                   "sample_frame" = df_sample_frame,
-                   "spares" = df_spare)
-
-  } else {
-    output <- list("sample" = "Invalid Output Format Provided",
-                   "sample_frame" = "Invalid Output Format Provided",
-                   "spares" = "Invalid Output Format Provided")
-  }
+  #Gather output in list
+  output <- list("sample" = df_sample,
+                 "sample_frame" = df_sample_frame,
+                 "spares" = df_spare)
 
   #Collect output
-  Output <- list("output" = list(
-                   "output_options" = output),
+  Output <- list("output" = output,
                  "input"  = list(
                    "samples" = df,
                    "seed_number" = seed,

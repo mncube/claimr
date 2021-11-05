@@ -11,17 +11,16 @@ score_audit <- rs_singlestage(df = df_sample_frame,
                               quantity_to_generate = 20,
                               quantity_of_spares = 3,
                               frame_low = 1,
-                              frame_high = 1000,
-                              output_options = c("data.frame"))
+                              frame_high = 1000)
 
 test_that("The sample data frame has the same amount of samples as the
 quantity_to_generate input", {
-  expect_equal(nrow(score_audit$output$output_options$sample),
+  expect_equal(nrow(score_audit$output$sample),
                score_audit$input$quantity_to_generate)
 })
 
 test_that("The spares data frame has the same amount of samples as the
 quantity_of_spares input", {
-  expect_equal(nrow(score_audit$output$output_options$spares),
+  expect_equal(nrow(score_audit$output$spares),
                score_audit$input$quantity_of_spares)
 })

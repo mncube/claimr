@@ -10,12 +10,11 @@ score_audit_num <- rs_singlestage(df = df_sample_frame_num,
                                   quantity_to_generate = 100,
                                   quantity_of_spares = 3,
                                   frame_low = 1,
-                                  frame_high = 1000,
-                                  output_options = c("data.frame"))
+                                  frame_high = 1000)
 
 #Manually obtain relative bias of score_audit_num
-sample_mean <- mean(score_audit_num$output$output_options$sample$score)
-frame_mean <- mean(score_audit_num$output$output_options$sample_frame$score)
+sample_mean <- mean(score_audit_num$output$sample$score)
+frame_mean <- mean(score_audit_num$output$sample_frame$score)
 manual_rel_bias <- abs((sample_mean - frame_mean)/frame_mean)
 
 #Use claimr's relative bias function to obtain relative bias of score_audit_num

@@ -11,8 +11,7 @@ rs_singlestage(
   quantity_to_generate = 0,
   quantity_of_spares = 0,
   frame_low = 1,
-  frame_high = 1,
-  output_options = c("data.frame")
+  frame_high = 1
 )
 }
 \arguments{
@@ -34,8 +33,6 @@ in Random Order:"}
 \item{frame_low}{"Enter the sampling frame Low Number: (default = 1)"}
 
 \item{frame_high}{"Enter the sampling frame High Number: (default = 1)"}
-
-\item{output_options}{"File Output Options: (Enter a subset of c("data.frame"))"}
 }
 \value{
 A nested list with "output" and "input" lists.  The output list contains three
@@ -59,6 +56,5 @@ rs_singlestage(df = df_sample_frame,
                quantity_to_generate = 20,
                quantity_of_spares = 3,
                frame_low = 1,
-               frame_high = 1000,
-               output_options = c("data.frame"))
+               frame_high = 1000)
 }

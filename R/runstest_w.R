@@ -9,7 +9,6 @@ runstest_w <- function(data = NULL, x_test, x_order = NULL){
     x_test <- deparse(substitute(x_test))
     x_order <- deparse(substitute(x_order))
 
-
     #Test if a sorting variable was provided then run runs test
     if (!is.null(data[[x_order]])){
       data <- data[order(data[[x_order]]),]
@@ -22,7 +21,6 @@ runstest_w <- function(data = NULL, x_test, x_order = NULL){
     }
 
   }
-
 
  #Return output
  return(rt_results)

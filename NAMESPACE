@@ -2,3 +2,4 @@
 
 export(relative_bias)
 export(rs_singlestage)
+export(runstest_w)

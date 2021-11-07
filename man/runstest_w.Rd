@@ -19,7 +19,8 @@ snpar::runs.test output (with a warning if using dataframe with x_order = NULL)
 \description{
 Wrapper around snpar::runs.test.  When using this function with a dataframe
 and the x_order parameter set to NULL, the output includes a warning that x_test
-must be sorted in the order in which samples were drawn.
+must be sorted in the order in which samples were drawn.  Use ?snpar::runs.test
+for technical documentation.
 }
 \examples{
 #Generate sampling frame  with an index id from 1 to N

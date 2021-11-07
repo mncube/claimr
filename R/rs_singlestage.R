@@ -114,5 +114,4 @@ rs_singlestage <- function(df = NULL,
   #Return output
   Output
 
-
 }

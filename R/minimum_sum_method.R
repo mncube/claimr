@@ -88,3 +88,19 @@ Ne_up <- function(Npop, nsamp, ne, alpha = 0.10)
     }
   }
 }
+
+#'  Difference Between Ne_low ("lower bound for the number of population payments in error") and ne
+#'
+#' @param Npop "Number of payments (e.g. on Medicare claims) in the universe/population"
+#' @param nsamp "Number of payments (e.g. on Medicare claims) in...simple random sample"
+#' @param ne "The number...of sample payments which are completely in error (Or, for partial overpayment scenarios, seriously in error—see Section 4.2.)"
+#' @param alpha alpha-level for "1-alpha confidence bound"
+#'
+#' @return Ne_low - ne
+#' @export
+#'
+#' @examples
+#' Ne_low_minus_ne(Npop = 1000, nsamp = 30, ne = 20)
+Ne_low_minus_ne <- function(Npop, nsamp, ne, alpha=0.10){
+  Ne_low(Npop, nsamp, ne, alpha=0.10) - ne
+}

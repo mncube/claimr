@@ -102,5 +102,5 @@ Ne_up <- function(Npop, nsamp, ne, alpha = 0.10)
 #' @examples
 #' Ne_low_minus_ne(Npop = 1000, nsamp = 30, ne = 20)
 Ne_low_minus_ne <- function(Npop, nsamp, ne, alpha=0.10){
-  Ne_low(Npop, nsamp, ne, alpha=0.10) - ne
+  Ne_low(Npop, nsamp, ne, alpha) - ne
 }

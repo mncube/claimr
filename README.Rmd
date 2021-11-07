@@ -59,4 +59,22 @@ head(score_audit_num$output$spares)
 #Compute the relative bias
 relative_bias(score_audit_num, score)
 ```
+## Get information for RAT-STATS Unrestricted Variable Appraisals
+```{r}
+#Get info
+uva_info <- gi_unrestricted_variable_appraisals(samp_obj = score_audit_num,
+                                     data_file_format = c("Audited Values"),
+                                     audited_values = score,
+                                     sample_item_number = sample_frame_sequence_id)
+#Look at the data_file
+uva_info$audit_review
+uva_info$frame_size
+uva_info$sample_size
+uva_info$data_file_format
+head(uva_info$data_file)
+
+#Export data file needed to process "Audited Values" Unrestricted Variable Appraisals in RAT-STATS
+rs_uva <- uva_info$data_file
+#write.table(rs_uva, sep=",",  col.names=FALSE)
+```
 

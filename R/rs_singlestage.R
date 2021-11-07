@@ -109,7 +109,8 @@ rs_singlestage <- function(df = NULL,
                    "quantity_to_generate" = quantity,
                    "quantity_of_spares" = spares,
                    "frame_low" = low,
-                   "frame_high" = high))
+                   "frame_high" = high,
+                   "obj_style" = "rs_singlestage"))
 
   #Return output
   Output

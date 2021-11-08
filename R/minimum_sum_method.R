@@ -105,6 +105,51 @@ Ne_low_minus_ne <- function(Npop, nsamp, ne, alpha=0.10){
   Ne_low(Npop, nsamp, ne, alpha) - ne
 }
 
+#' Least Minimum Sum
+#'
+#' "LMS = {sum of the ne sample overpayments} + {sum of the smallest LNE - ne nonsampled population payments}"
+#'
+#' Citation: Edwards, D., Ward-Besser, G., Lasecki, J., Parker, B., Wu, F. & Moorhead, P. (2003).  The Minimum Sum Method: A Distribution-Free Sampling Procedure for Medicare Fraud Investigations.  Heath Services & Outcomes Research Methodology 4: 241-263.
+#'
+#' @param df_samp Sample (must have var, flag, and sub_var)
+#' @param df_frame sampling frame (must have sub_var variable to match with df_samp)
+#' @param var Independent variable in LMS calculation
+#' @param sub_var Variable used to match sample records (df_samp) and sampling frame records (df_frame)
+#' @param flag Variable that flags observations with errors.
+#' @param Npop "Number of payments (e.g. on Medicare claims) in the universe/population"
+#' @param nsamp "Number of payments (e.g. on Medicare claims) in...simple random sample"
+#' @param ne "The number...of sample payments which are completely in error (Or, for partial overpayment scenarios, seriously in error—see Section 4.2.)"
+#' @param alpha alpha-level for "1-alpha confidence bound"
+#'
+#' @return LMS nested list returning a list of numbers and a list of data_frames
+#' @export
+#'
+#' @examples
+#' #Generate sampling frame  with an index id from 1 to N
+#' df_sample_frame_num <- data.frame("sample_frame_sequence_id" = 1:1000,
+#'                                  "score" = rnorm(1000, 75, 10))
+#'
+#' #Get output and input in lists
+#' score_audit_num <- rs_singlestage(df = df_sample_frame_num,
+# '                                  seed_number = 100,
+#'                                   audit_review = "Score Audit",
+#'                                   quantity_to_generate = 100,
+#'                                   quantity_of_spares = 3,
+#'                                   frame_low = 1,
+#'                                   frame_high = 1000)
+#'
+#' score_samp <- score_audit_num$output$sample
+#' score_samp$audit_results <- sample(0:1, 100, replace = TRUE)
+#'
+#' score_frame <- score_audit_num$output$sample_frame
+#'
+#' LMS_out <- LMS(score_samp, score_frame, var = score, sub_var = sample_frame_sequence_id,
+#'                flag = audit_results,
+#'                Npop = 1000, nsamp = 100, ne = 100)
+#'
+#' #Get LMS estimate
+#' LMS_out$numbers$LMS
+#'
 LMS <- function(df_samp,
                 df_frame,
                 var,
@@ -142,10 +187,14 @@ LMS <- function(df_samp,
   df_samp <- df_samp[df_samp[[flag]] == 1, ]
   sum_ne <- sum(df_samp[[var]])
 
+  #Obtain lower minimum sum
   LMS_out <- sum_ne + sum_LNe_ne
 
+  #Collect output
+  numbers <- list("LMS" = LMS_out, "sum_ne" = sum_ne, "sum_LNE_minus_ne" = sum_LNe_ne)
+  data <- list("df_ne" = df_samp, "df_NLE_minus_ne" = df_frame)
+  Output <- list("numbers" = numbers, "data" = data)
 
-  Output <- list("LMS" = LMS_out, "sum_ne" = sum_ne, "sum_LNE_minus_ne" = sum_LNe_ne)
-
+  #Return output
   return(Output)
 }

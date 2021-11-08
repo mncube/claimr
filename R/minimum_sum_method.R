@@ -104,3 +104,48 @@ Ne_up <- function(Npop, nsamp, ne, alpha = 0.10)
 Ne_low_minus_ne <- function(Npop, nsamp, ne, alpha=0.10){
   Ne_low(Npop, nsamp, ne, alpha) - ne
 }
+
+LMS <- function(df_samp,
+                df_frame,
+                var,
+                sub_var,
+                flag,
+                Npop,
+                nsamp,
+                ne,
+                alpha=0.10){
+
+  #Convert column names to strings
+  sub_var <- deparse(substitute(sub_var))
+  var     <- deparse(substitute(var))
+  flag     <- deparse(substitute(flag))
+
+  #Remove samples from sampling frame
+  frame_vec <- df_frame[[sub_var]]
+  samp_vec <- df_samp[[sub_var]]
+  df_frame <- df_frame[!(frame_vec %in% samp_vec), ]
+
+  #Order sampling frame by var
+  df_frame <- df_frame[order(df_frame[[var]]),]
+
+  #Get LNE − ne
+  LNe_ne <- Ne_low_minus_ne(Npop, nsamp, ne, alpha)
+
+  #Get sampling frame with Ne_low_minus_ne rows removed
+  df_frame <- df_frame[1:LNe_ne, , drop = FALSE]
+
+  #Get "sum of the smallest LNE − nE nonsampled population payments"
+  sum_LNe_ne <- sum(df_frame[[var]])
+
+  #Get sum of the nE sample overpayments
+  remove <- df_samp
+  df_samp <- df_samp[df_samp[[flag]] == 1, ]
+  sum_ne <- sum(df_samp[[var]])
+
+  LMS_out <- sum_ne + sum_LNe_ne
+
+
+  Output <- list("LMS" = LMS_out, "sum_ne" = sum_ne, "sum_LNE_minus_ne" = sum_LNe_ne)
+
+  return(Output)
+}

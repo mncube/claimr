@@ -40,34 +40,34 @@ score_audit_num <- rs_singlestage(df = df_sample_frame_num,
 
 #View some of the samples
 head(score_audit_num$output$sample)
-#>     sample_frame_sequence_id        score random_numbers
-#> 182                      182  0.984072593              1
-#> 323                      323 -1.695360576              2
-#> 962                      962  1.968781075              3
-#> 397                      397 -0.009451446              4
-#> 987                      987 -0.464841585              5
-#> 601                      601 -0.441534742              6
+#>     sample_frame_sequence_id      score random_numbers
+#> 182                      182 -0.2228876              1
+#> 323                      323  1.2110544              2
+#> 962                      962 -0.4987969              3
+#> 397                      397 -0.4757420              4
+#> 987                      987 -1.4205520              5
+#> 601                      601  2.4985965              6
 
 #View some of the sampling frame
 head(score_audit_num$output$sample_frame)
-#>     sample_frame_sequence_id        score random_numbers
-#> 182                      182  0.984072593              1
-#> 323                      323 -1.695360576              2
-#> 962                      962  1.968781075              3
-#> 397                      397 -0.009451446              4
-#> 987                      987 -0.464841585              5
-#> 601                      601 -0.441534742              6
+#>     sample_frame_sequence_id      score random_numbers
+#> 182                      182 -0.2228876              1
+#> 323                      323  1.2110544              2
+#> 962                      962 -0.4987969              3
+#> 397                      397 -0.4757420              4
+#> 987                      987 -1.4205520              5
+#> 601                      601  2.4985965              6
 
 #View some of the spares
 head(score_audit_num$output$spares)
 #>     sample_frame_sequence_id      score random_numbers
-#> 830                      830 -1.4695674            101
-#> 436                      436 -0.2703743            102
-#> 684                      684 -1.9438471            103
+#> 830                      830 -1.3597070            101
+#> 436                      436  2.8460599            102
+#> 684                      684 -0.3411627            103
 
 #Compute the relative bias
 relative_bias(score_audit_num, score)
-#> [1] 1.989541
+#> [1] 3.638445
 ```
 
 ## Get information for RAT-STATS Unrestricted Variable Appraisals
@@ -89,12 +89,12 @@ uva_info$data_file_format
 #> [1] "Audited Values"
 head(uva_info$data_file)
 #>   sample_item_number audited_values
-#> 1                182    0.984072593
-#> 2                323   -1.695360576
-#> 3                962    1.968781075
-#> 4                397   -0.009451446
-#> 5                987   -0.464841585
-#> 6                601   -0.441534742
+#> 1                182     -0.2228876
+#> 2                323      1.2110544
+#> 3                962     -0.4987969
+#> 4                397     -0.4757420
+#> 5                987     -1.4205520
+#> 6                601      2.4985965
 
 #Export data file needed to process "Audited Values" Unrestricted Variable Appraisals in RAT-STATS
 rs_uva <- uva_info$data_file
@@ -133,6 +133,16 @@ combined_out <- rs_setsoftwo(df = df_combined,
                        first_set_high = 3,
                        second_set_low = 1,
                        second_set_high = 10)
+
+#Get head of sample
+head(combined_out$output$sample)
+#>    page    score item order
+#> 6     1 7.374505    6     9
+#> 10    1 8.781231   10     5
+#> 11    2 3.784050    1     7
+#> 12    2 9.013616    2     4
+#> 13    2 7.357762    3     8
+#> 14    2 6.944575    4     6
 
 #Get the mean of the sample
 mean(unlist(combined_out$output$sample))

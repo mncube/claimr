@@ -110,6 +110,9 @@ combined_out <- rs_setsoftwo(df = df_combined,
                        second_set_low = 1,
                        second_set_high = 10)
 
+#Get head of sample
+head(combined_out$output$sample)
+
 #Get the mean of the sample
 mean(unlist(combined_out$output$sample))
 ```

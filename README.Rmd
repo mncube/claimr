@@ -78,3 +78,39 @@ rs_uva <- uva_info$data_file
 #write.table(rs_uva, sep=",",  col.names=FALSE)
 ```
 
+## Randomly select items from a two stage sampling process 
+```{r}
+#In this example let each data frame represent a score sheet (first_set) with
+#10 scores (second_set) on each sheet
+
+#Create three separate score sheets 
+df1 <- data.frame(page = c(1),
+                  score = rnorm(10, 7,2),
+                  item = 1:10)
+df2 <- data.frame(page = c(2),
+                  score = rnorm(10, 6, 1.5),
+                  item = 1:10)
+df3 <- data.frame(page = c(3),
+                  score = rnorm(10, 8, 0.5),
+                  item = 1:10)
+
+#Combine the score sheets
+df_combined <- rbind(df1, df2, df3)
+
+#Randomly pull observations from the combined score sheet
+combined_out <- rs_setsoftwo(df = df_combined,
+                       first_set = page,
+                       second_set = item,
+                       seed_number = NA,
+                       audit_review = "",
+                       quantity_to_generate = 10,
+                       quantity_of_spares = 2,
+                       first_set_low = 1,
+                       first_set_high = 3,
+                       second_set_low = 1,
+                       second_set_high = 10)
+
+#Get the mean of the sample
+mean(unlist(combined_out$output$sample))
+```
+

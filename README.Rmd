@@ -80,7 +80,7 @@ rs_uva <- uva_info$data_file
 
 ## Randomly select items from a two stage sampling process 
 ```{r}
-#In this example let each data frame represent a score sheet (first_set) with
+#In this example let each data frame represents a score sheet (first_set) with
 #10 scores (second_set) on each sheet
 
 #Create three separate score sheets 
@@ -115,5 +115,60 @@ head(combined_out$output$sample)
 
 #Get the mean of the sample
 mean(unlist(combined_out$output$sample))
+```
+
+## Randomly select items from a three stage sampling process 
+```{r}
+#In this example let each data frame represents a pre-test or post-test (first_set) and 
+#a score sheet (second_set) with 10 scores (third_set) on each sheet
+
+#Create six separate data frames
+df1_pre <- data.frame(time = 1,
+                      page = c(1),
+                      score = rnorm(10, 7,2),
+                      item = 1:10)
+df2_pre <- data.frame(time = 1,
+                      page = c(2),
+                      score = rnorm(10, 6, 1.5),
+                      item = 1:10)
+df3_pre <- data.frame(time = 1,
+                      page = c(3),
+                      score = rnorm(10, 8, 0.5),
+                      item = 1:10)
+df1_post <- data.frame(time = 2,
+                       page = c(1),
+                       score = rnorm(10, 7,2),
+                       item = 1:10)
+df2_post <- data.frame(time = 2,
+                       page = c(2),
+                       score = rnorm(10, 6, 1.5),
+                       item = 1:10)
+df3_post <- data.frame(time = 2,
+                       page = c(3),
+                       score = rnorm(10, 8, 0.5),
+                       item = 1:10)
+
+#Combine the data frames
+df_combined <- rbind(df1_pre, df2_pre, df3_pre,
+                     df1_post, df2_post, df3_post)
+
+#Randomly pull observations from df_combined
+combined_out <- rs_setsofthree(df = df_combined,
+                               first_set = time,
+                               second_set = page,
+                               third_set = item,
+                               seed_number = NA,
+                               audit_review = "",
+                               quantity_to_generate = 10,
+                               quantity_of_spares = 2,
+                               first_set_low = 1,
+                               first_set_high = 2,
+                               second_set_low = 1,
+                               second_set_high = 3,
+                               third_set_low = 1,
+                               third_set_high = 10)
+
+#Get head of sample
+head(combined_out$output$sample, 10)
 ```
 

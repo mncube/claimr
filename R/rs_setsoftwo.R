@@ -1,8 +1,8 @@
 #' Rat-Stats Style Sets of Two Random Numbers
 #'
 #' @param df A data frame containing an index for the first and second set of numbers
-#' @param first_set Index for first set of numbers (i.e., page, source, or data frame id)
-#' @param second_set Index for second set of numbers (i.e., line, observation, or row id)
+#' @param first_set Column name for first set of numbers (i.e., page, source, or data frame id)
+#' @param second_set Column name for second set of numbers (i.e., line, observation, or row id)
 #' @param seed_number "Do you want to provide seed number?" Provide a seed number.
 #' If the default (seed_number = NA) is retained then the seed number will be set
 #' to sample(0:1000000, 1) and the result will be returned in the output.
@@ -118,7 +118,7 @@ rs_setsoftwo <- function(df = NULL,
   #Merge df with random numbers
   df <- dplyr::left_join(df, frame, by = c("first_value", "second_value"))
 
-  #Order sampling frame by var
+  #Order sampling frame by order
   df <- df[order(df[["order"]]),]
 
   #Create the data frame containing the sample

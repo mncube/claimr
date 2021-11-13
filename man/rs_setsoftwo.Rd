@@ -21,9 +21,9 @@ rs_setsoftwo(
 \arguments{
 \item{df}{A data frame containing an index for the first and second set of numbers}
 
-\item{first_set}{Index for first set of numbers (i.e., page, source, or data frame id)}
+\item{first_set}{Column name for first set of numbers (i.e., page, source, or data frame id)}
 
-\item{second_set}{Index for second set of numbers (i.e., line, observation, or row id)}
+\item{second_set}{Column name for second set of numbers (i.e., line, observation, or row id)}
 
 \item{seed_number}{"Do you want to provide seed number?" Provide a seed number.
 If the default (seed_number = NA) is retained then the seed number will be set

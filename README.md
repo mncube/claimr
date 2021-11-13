@@ -41,33 +41,33 @@ score_audit_num <- rs_singlestage(df = df_sample_frame_num,
 #View some of the samples
 head(score_audit_num$output$sample)
 #>     sample_frame_sequence_id      score random_numbers
-#> 182                      182 -0.2228876              1
-#> 323                      323  1.2110544              2
-#> 962                      962 -0.4987969              3
-#> 397                      397 -0.4757420              4
-#> 987                      987 -1.4205520              5
-#> 601                      601  2.4985965              6
+#> 182                      182 -0.2216545              1
+#> 323                      323  0.5524901              2
+#> 962                      962 -0.4437616              3
+#> 397                      397  0.1938254              4
+#> 987                      987  0.3090879              5
+#> 601                      601  0.5237141              6
 
 #View some of the sampling frame
 head(score_audit_num$output$sample_frame)
 #>     sample_frame_sequence_id      score random_numbers
-#> 182                      182 -0.2228876              1
-#> 323                      323  1.2110544              2
-#> 962                      962 -0.4987969              3
-#> 397                      397 -0.4757420              4
-#> 987                      987 -1.4205520              5
-#> 601                      601  2.4985965              6
+#> 182                      182 -0.2216545              1
+#> 323                      323  0.5524901              2
+#> 962                      962 -0.4437616              3
+#> 397                      397  0.1938254              4
+#> 987                      987  0.3090879              5
+#> 601                      601  0.5237141              6
 
 #View some of the spares
 head(score_audit_num$output$spares)
-#>     sample_frame_sequence_id      score random_numbers
-#> 830                      830 -1.3597070            101
-#> 436                      436  2.8460599            102
-#> 684                      684 -0.3411627            103
+#>     sample_frame_sequence_id       score random_numbers
+#> 830                      830 -0.90058222            101
+#> 436                      436  0.03977434            102
+#> 684                      684  1.13626413            103
 
 #Compute the relative bias
 relative_bias(score_audit_num, score)
-#> [1] 3.638445
+#> [1] 0.6523302
 ```
 
 ## Get information for RAT-STATS Unrestricted Variable Appraisals
@@ -89,12 +89,12 @@ uva_info$data_file_format
 #> [1] "Audited Values"
 head(uva_info$data_file)
 #>   sample_item_number audited_values
-#> 1                182     -0.2228876
-#> 2                323      1.2110544
-#> 3                962     -0.4987969
-#> 4                397     -0.4757420
-#> 5                987     -1.4205520
-#> 6                601      2.4985965
+#> 1                182     -0.2216545
+#> 2                323      0.5524901
+#> 3                962     -0.4437616
+#> 4                397      0.1938254
+#> 5                987      0.3090879
+#> 6                601      0.5237141
 
 #Export data file needed to process "Audited Values" Unrestricted Variable Appraisals in RAT-STATS
 rs_uva <- uva_info$data_file
@@ -104,7 +104,7 @@ rs_uva <- uva_info$data_file
 ## Randomly select items from a two stage sampling process
 
 ``` r
-#In this example let each data frame represent a score sheet (first_set) with
+#In this example let each data frame represents a score sheet (first_set) with
 #10 scores (second_set) on each sheet
 
 #Create three separate score sheets 
@@ -147,4 +147,71 @@ head(combined_out$output$sample)
 #Get the mean of the sample
 mean(unlist(combined_out$output$sample))
 #> [1] 4.961096
+```
+
+## Randomly select items from a three stage sampling process
+
+``` r
+#In this example let each data frame represents a pre-test or post-test (first_set) and 
+#a score sheet (second_set) with 10 scores (third_set) on each sheet
+
+#Create six separate data frames
+df1_pre <- data.frame(time = 1,
+                      page = c(1),
+                      score = rnorm(10, 7,2),
+                      item = 1:10)
+df2_pre <- data.frame(time = 1,
+                      page = c(2),
+                      score = rnorm(10, 6, 1.5),
+                      item = 1:10)
+df3_pre <- data.frame(time = 1,
+                      page = c(3),
+                      score = rnorm(10, 8, 0.5),
+                      item = 1:10)
+df1_post <- data.frame(time = 2,
+                       page = c(1),
+                       score = rnorm(10, 7,2),
+                       item = 1:10)
+df2_post <- data.frame(time = 2,
+                       page = c(2),
+                       score = rnorm(10, 6, 1.5),
+                       item = 1:10)
+df3_post <- data.frame(time = 2,
+                       page = c(3),
+                       score = rnorm(10, 8, 0.5),
+                       item = 1:10)
+
+#Combine the data frames
+df_combined <- rbind(df1_pre, df2_pre, df3_pre,
+                     df1_post, df2_post, df3_post)
+
+#Randomly pull observations from df_combined
+combined_out <- rs_setsofthree(df = df_combined,
+                               first_set = time,
+                               second_set = page,
+                               third_set = item,
+                               seed_number = NA,
+                               audit_review = "",
+                               quantity_to_generate = 10,
+                               quantity_of_spares = 2,
+                               first_set_low = 1,
+                               first_set_high = 2,
+                               second_set_low = 1,
+                               second_set_high = 3,
+                               third_set_low = 1,
+                               third_set_high = 10)
+
+#Get head of sample
+head(combined_out$output$sample, 10)
+#>    time page    score item order
+#> 11    1    2 5.395469    1     4
+#> 21    1    3 7.548854    1     6
+#> 24    1    3 8.515617    4     5
+#> 28    1    3 7.855659    8     2
+#> 29    1    3 8.724455    9     3
+#> 30    1    3 7.073804   10     1
+#> 33    2    1 9.184083    3     9
+#> 34    2    1 9.684856    4     8
+#> 43    2    2 5.825793    3     7
+#> 52    2    3 7.818014    2    10
 ```

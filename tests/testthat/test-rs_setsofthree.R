@@ -53,7 +53,3 @@ test_that("Rows in .$output$sample equals .$input$quantity_to_generate", {
 test_that("Rows in .$output$spares equals .$input$quantity_of_spares", {
   expect_equal(nrow(combined_out$output$spares), combined_out$input$quantity_of_spares)
 })
-
-test_that("multiplication works", {
-  expect_equal(2 * 2, 4)
-})

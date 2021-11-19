@@ -210,9 +210,10 @@ rs_setsofthree <- function(df = NULL,
                    "second_set_low" = second_low,
                    "second_set_high" = second_high,
                    "third_set_low" = third_low,
-                   "third_set_high" = third_high,
-                   "obj_style" = "rs_setsofthree"))
+                   "third_set_high" = third_high))
 
-  #Return results
-  return(Output)
+  #Set attributes
+  structure(Output,
+            class = "rs_setsofthree"
+  )
 }

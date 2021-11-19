@@ -168,9 +168,10 @@ rs_setsoftwo <- function(df = NULL,
                    "first_set_low" = first_low,
                    "first_set_high" = first_high,
                    "second_set_low" = second_low,
-                   "second_set_high" = second_high,
-                   "obj_style" = "rs_setsoftwo"))
+                   "second_set_high" = second_high))
 
-  #Return results
-  return(Output)
+  #Set attributes
+  structure(Output,
+            class = "rs_setsoftwo"
+  )
 }

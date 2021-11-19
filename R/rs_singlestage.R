@@ -40,6 +40,7 @@ rs_singlestage <- function(df = NULL,
                            quantity_of_spares = 0,
                            frame_low = 1,
                            frame_high = 1){
+  stopifnot(is.data.frame(df))
 
   #Do you want to set a seed number?
   if (is.na(seed_number)){#If No:
@@ -109,10 +110,10 @@ rs_singlestage <- function(df = NULL,
                    "quantity_to_generate" = quantity,
                    "quantity_of_spares" = spares,
                    "frame_low" = low,
-                   "frame_high" = high,
-                   "obj_style" = "rs_singlestage"))
+                   "frame_high" = high))
 
-  #Return output
-  Output
-
+  #Set attributes
+  structure(Output,
+            class = "rs_singlestage"
+  )
 }

@@ -1,4 +1,4 @@
-#' Title
+#' Rat-Stats Style Sets of Four Random Numbers
 #'
 #' @param df A data frame containing an index for the first, second, third, and fourth set of numbers
 #' @param first_set Column name for first set of numbers (i.e., session)
@@ -252,9 +252,10 @@ rs_setsoffour <- function(df = NULL,
                    "third_set_low" = third_low,
                    "third_set_high" = third_high,
                    "fourth_set_low" = fourth_low,
-                   "fourth_set_high" = fourth_high,
-                   "obj_style" = "rs_setsofthee"))
+                   "fourth_set_high" = fourth_high))
 
-  #Return results
-  return(Output)
+  #Set attributes
+  structure(Output,
+            class = "rs_setsoffour"
+  )
 }
